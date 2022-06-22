@@ -47,8 +47,8 @@ public class ResponceData {
                 out.write(header.toString().getBytes(StandardCharsets.UTF_8));
                 return;
             }else{
-                // String header = sendHeader();
-                // out.write(header.getBytes(URF8));
+                String header = sendHeader();
+                out.write(header.getBytes(URF8));
                 try (FileInputStream fileIn = new FileInputStream(file)) {
                     while (true) {
                         int len = fileIn.read(buf);
