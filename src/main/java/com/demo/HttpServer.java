@@ -12,35 +12,36 @@ public class HttpServer{
     }
 
     public void start() throws IOException{
-        ServerSocket socket = new ServerSocket();
-        socket.bind(new InetSocketAddress("0.0.0.0", portNumber));
+        try (ServerSocket socket = new ServerSocket()) {
+            socket.bind(new InetSocketAddress("0.0.0.0", portNumber));
 
 
-        while (true){
-            Socket acccepted = socket.accept();
+            while (true){
+                Socket acccepted = socket.accept();
 
-            new Thread() {
+                new Thread() {
 
-                @Override
-                public void run(){
-                    try {
+                    @Override
+                    public void run(){
                         try {
-                            try (
-                                InputStream in = acccepted.getInputStream();
-                                OutputStream out = acccepted.getOutputStream()
-                                ) {
+                            try {
+                                try (
+                                    InputStream in = acccepted.getInputStream();
+                                    OutputStream out = acccepted.getOutputStream()
+                                    ) {
 
-                                ResponceData responceData = new ResponceData(in, out);
-                                responceData.responce();
-                            } 
-                        } finally {
-                            acccepted.close();
+                                    ResponceData responceData = new ResponceData(in, out);
+                                    responceData.responce();
+                                } 
+                            } finally {
+                                acccepted.close();
+                            }
+                        } catch (IOException e){
+                            
                         }
-                    } catch (IOException e){
-                        
                     }
-                }
-            }.start();  
+                }.start();  
+            }
         }
     }
 
