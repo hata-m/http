@@ -17,7 +17,7 @@ public class HttpClient{
         OutputStream out = socket.getOutputStream();
         // InputStream in = socket.getInputStream();
         InputStream in = socket.getInputStream();
-        byte[] data = "POST /test.com HTTP/1.1\r\n".getBytes();
+        byte[] data = "GET /test.txt HTTP/1.1\r\n Host".getBytes();
         out.write(data);
 
         int len = in.read(buf);

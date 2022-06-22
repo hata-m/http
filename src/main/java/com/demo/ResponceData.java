@@ -37,16 +37,18 @@ public class ResponceData {
         RequestData req = RequestParser.parseData(in);
         System.out.println(req.method);
 
-        if(req.method == "GET"){    
+        if(req.method.equals("GET")){    
             byte[] buf = new byte[1280];
-            File file = new File(req.path);
+            File file = new File(FileChecker.getFileName(req.path));
+            // System.out.println("aaaaaa");
+            System.out.println(file.getPath());
             if (file == null || !file.exists() || !file.isFile()) {
                 String header = sendError();
                 out.write(header.toString().getBytes(StandardCharsets.UTF_8));
                 return;
             }else{
-                String header = sendHeader();
-                out.write(header.getBytes(URF8));
+                // String header = sendHeader();
+                // out.write(header.getBytes(URF8));
                 try (FileInputStream fileIn = new FileInputStream(file)) {
                     while (true) {
                         int len = fileIn.read(buf);
@@ -58,8 +60,8 @@ public class ResponceData {
                     }
                 }
             }
-            
         }else{
+            // System.out.println("bbbbbb");
             String header = sendError();
             out.write(header.toString().getBytes(StandardCharsets.UTF_8));
             return;

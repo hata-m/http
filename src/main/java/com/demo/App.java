@@ -1,10 +1,7 @@
 package com.demo;
 
 import java.io.IOException;
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     

@@ -7,7 +7,7 @@ import java.util.List;
  
 public class RequestParser {
     private static String CRLF = "\r\n";
-    
+
     public static RequestData parseData(InputStream in) throws IOException{
         RequestData req = new RequestData();
         byte[] buf = new byte[4096];
@@ -21,7 +21,7 @@ public class RequestParser {
         for (String list: lists){
             if(list.contains("keep-alive")){
                 req.keep_alive = list;
-            }else if(list.contains("")){
+            }else if(list.contains("HOST")){
                 req.host = list;
             }else{
                 //残りのメソッド
